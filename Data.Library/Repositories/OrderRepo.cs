@@ -5,7 +5,7 @@ using System.Linq;
 using dom = Domains.Library;
 using Microsoft.EntityFrameworkCore;
 
-namespace DbLibrary.Library.Repositories
+namespace Data.Library.Repositories
 {
     /// <summary>
     /// A Repository of Functions revolving around Domain Orders and Entity Reciepts and Entity Baskets.

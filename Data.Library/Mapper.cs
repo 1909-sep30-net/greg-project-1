@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using dom = Domains.Library;
 
-namespace DbLibrary.Library
+namespace Data.Library
 {
     /// <summary>
     /// Contains static methods for mapping between *Domain* objects and *Entity* objects.
     /// *Domain* means the user-defined classes in Domains.Library
-    /// *Entity* means the auto-generated classed in DbLibrary.Library.Entities
+    /// *Entity* means the auto-generated classed in Data.Library.Entities
     /// </summary>
     public static class Mapper
     {

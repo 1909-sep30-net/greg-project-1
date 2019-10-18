@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Greg_Project_1.Models.SearchLocationViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Location Id</th>
+            <th>Name</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayName(item.Id.ToString())
+            </td>
+            <td>
+                @Html.DisplayName(item.Name)
+            </td>
+            <td>
+                @Html.DisplayName(item.Address)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

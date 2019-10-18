@@ -6,7 +6,7 @@ using System.Text;
 using dom = Domains.Library;
 
 
-namespace DbLibrary.Library.Repositories
+namespace Data.Library.Repositories
 {
     /// <summary>
     /// A Repository of Functions revolving around Domain Locations and Entity Locations and Entity Inventories.
