@@ -6,12 +6,12 @@ using System.Text;
 using dom = Domains.Library;
 
 
-namespace DbLibrary.Library.Repositories
+namespace DbLibrary.Library.Repositories 
 {
     /// <summary>
     /// A Repository of Functions revolving around Domain Customers and Entity Customers
     /// </summary>
-    public class CustomerRepo
+    public class CustomerRepo : dom.Interfaces.ICustomerRepo
     {
         /// <summary>
         /// The Context of the database

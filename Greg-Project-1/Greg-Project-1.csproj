@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Greg_Project_1</RootNamespace>
+    <UserSecretsId>02128980-76af-4f20-97b8-5d61b0f4464c</UserSecretsId>
   </PropertyGroup>
 
-
   <ItemGroup>
+    <ProjectReference Include="..\DbLibrary.Library\Data.Library.csproj" />
+    <ProjectReference Include="..\Domains.Library\Domains.Library.csproj" />
   </ItemGroup>
 
 </Project>

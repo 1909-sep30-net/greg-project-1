@@ -10,7 +10,7 @@ namespace DbLibrary.Library.Repositories
     /// <summary>
     /// A Repository of Functions revolving around Domain Orders and Entity Reciepts and Entity Baskets.
     /// </summary>
-    public class OrderRepo
+    public class OrderRepo : dom.Interfaces.IOrderRepo
     {
         /// <summary>
         /// The Context of the database

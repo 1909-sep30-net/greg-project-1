@@ -11,7 +11,7 @@ namespace DbLibrary.Library.Repositories
     /// <summary>
     /// A Repository of Functions revolving around Domain Locations and Entity Locations and Entity Inventories.
     /// </summary>
-    public class LocationRepo
+    public class LocationRepo : dom.Interfaces.ILocationRepo
     {
         /// <summary>
         /// The Context of the database

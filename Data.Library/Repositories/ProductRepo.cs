@@ -10,7 +10,7 @@ namespace DbLibrary.Library.Repositories
     /// <summary>
     /// A Repository of Functions revolving around Domain Products and Entity Products.
     /// </summary>
-    public class ProductRepo
+    public class ProductRepo : dom.Interfaces.IProductRepo
     {
         /// <summary>
         /// The Context of the database
