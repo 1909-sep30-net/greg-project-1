@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Greg_Project_1.Models
 {
-    public class SearchCustomerViewModel
+    public class CustomerViewModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

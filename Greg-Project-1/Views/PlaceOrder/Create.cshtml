@@ -1,0 +1,40 @@
+﻿@model Greg_Project_1.Models.PlaceOrderViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>PlaceOrderViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustId" class="control-label"></label>
+                <input asp-for="CustId" class="form-control" />
+                <span asp-validation-for="CustId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocId" class="control-label"></label>
+                <input asp-for="LocId" class="form-control" />
+                <span asp-validation-for="LocId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrdId" class="control-label"></label>
+                <input asp-for="OrdId" class="form-control" />
+                <span asp-validation-for="OrdId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

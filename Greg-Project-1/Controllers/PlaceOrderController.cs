@@ -9,47 +9,44 @@ using dat = Data.Library;
 
 namespace Greg_Project_1.Controllers
 {
-    public class SearchCustomerController : Controller
+    public class PlaceOrderController : Controller
     {
         public dom.Interfaces.ICustomerRepo _custContext { get; }
+        public dom.Interfaces.ILocationRepo _locContext { get; }
+        public dom.Interfaces.IOrderRepo _ordContext { get; }
 
-        public SearchCustomerController(dom.Interfaces.ICustomerRepo context) =>
-            _custContext = context ?? throw new ArgumentNullException(nameof(_custContext));
-
-
-
-
-        // GET: SearchCustomer
-        public ActionResult Index([FromQuery]int custid = -1, [FromQuery]string firstname = "", [FromQuery]string lastname = "")
+        public PlaceOrderController
+            (
+             dom.Interfaces.ICustomerRepo custcontext,
+             dom.Interfaces.ILocationRepo loccontext,
+             dom.Interfaces.IOrderRepo ordcontext
+            )
         {
-            IEnumerable<dom.Customer> custDom= _custContext.GetCustomers(firstname, lastname, custid);
-            IEnumerable<Models.SearchCustomerViewModel> custVM = custDom.Select(c => new Models.SearchCustomerViewModel
-            {
-                Id = c.CustID,
-                FirstName = c.FirstName,
-                LastName = c.LastName,
-                Address = c.Address
-            });
-
-
-            return View(custVM);
+            _custContext = custcontext ?? throw new ArgumentNullException(nameof(_custContext));
+            _locContext = loccontext ?? throw new ArgumentNullException(nameof(_locContext));
+            _ordContext = ordcontext ?? throw new ArgumentNullException(nameof(_ordContext));
         }
 
 
+        // GET: PlaceOrder
+        public ActionResult Index()
+        {
+            return View();
+        }
 
-        // GET: SearchCustomer/Details/5
+        // GET: PlaceOrder/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: SearchCustomer/Create
+        // GET: PlaceOrder/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SearchCustomer/Create
+        // POST: PlaceOrder/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -57,15 +54,6 @@ namespace Greg_Project_1.Controllers
             try
             {
                 // TODO: Add insert logic here
-
-                dom.Customer cust = new dom.Customer(
-                    Convert.ToString(collection["firstname"]),
-                    Convert.ToString(collection["lastname"]),
-                    Convert.ToString(collection["address"]));
-
-
-                _custContext.AddCustomer(cust);
-                _custContext.Save();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -75,13 +63,13 @@ namespace Greg_Project_1.Controllers
             }
         }
 
-        // GET: SearchCustomer/Edit/5
+        // GET: PlaceOrder/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: SearchCustomer/Edit/5
+        // POST: PlaceOrder/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -98,13 +86,13 @@ namespace Greg_Project_1.Controllers
             }
         }
 
-        // GET: SearchCustomer/Delete/5
+        // GET: PlaceOrder/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: SearchCustomer/Delete/5
+        // POST: PlaceOrder/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
