@@ -58,6 +58,15 @@ namespace Greg_Project_1.Controllers
             {
                 // TODO: Add insert logic here
 
+                dom.Customer cust = new dom.Customer(
+                    Convert.ToString(collection["firstname"]),
+                    Convert.ToString(collection["lastname"]),
+                    Convert.ToString(collection["address"]));
+
+
+                _custContext.AddCustomer(cust);
+                _custContext.Save();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
