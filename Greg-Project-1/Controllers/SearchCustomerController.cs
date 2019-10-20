@@ -5,47 +5,51 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using dom = Domains.Library;
-using dat = Data.Library; 
+using dat = Data.Library;
 
 namespace Greg_Project_1.Controllers
 {
-    public class SearchLocationController : Controller
+    public class SearchCustomerController : Controller
     {
-        public dom.Interfaces.ILocationRepo _locContext { get; }
+        public dom.Interfaces.ICustomerRepo _custContext { get; }
 
-        public SearchLocationController(dom.Interfaces.ILocationRepo context) =>
-            _locContext = context ?? throw new ArgumentNullException(nameof(_locContext));
+        public SearchCustomerController(dom.Interfaces.ICustomerRepo context) =>
+            _custContext = context ?? throw new ArgumentNullException(nameof(_custContext));
 
 
-        // GET: SearchLocation
-        public ActionResult Index()
+
+
+        // GET: SearchCustomer
+        public ActionResult Index([FromQuery]int custid = -1, [FromQuery]string firstname = "", [FromQuery]string lastname = "")
         {
-            var locations = _locContext.GetLocations().ToList();
-            var viewmodel = locations.Select(l => new Models.SearchLocationViewModel
+            IEnumerable<dom.Customer> custDom= _custContext.GetCustomers(firstname, lastname, custid);
+            IEnumerable<Models.SearchCustomerViewModel> custVM = custDom.Select(c => new Models.SearchCustomerViewModel
             {
-                Id = l.StoreID,
-                Name = l.StoreName,
-                Address = l.Address
-            }); 
+                Id = c.CustID,
+                FirstName = c.FirstName,
+                LastName = c.LastName,
+                Address = c.Address
+            });
 
-            
 
-            return View(viewmodel);
+            return View(custVM);
         }
 
-        // GET: SearchLocation/Details/5
+
+
+        // GET: SearchCustomer/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: SearchLocation/Create
+        // GET: SearchCustomer/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SearchLocation/Create
+        // POST: SearchCustomer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -53,7 +57,7 @@ namespace Greg_Project_1.Controllers
             try
             {
                 // TODO: Add insert logic here
-               
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -62,13 +66,13 @@ namespace Greg_Project_1.Controllers
             }
         }
 
-        // GET: SearchLocation/Edit/5
+        // GET: SearchCustomer/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: SearchLocation/Edit/5
+        // POST: SearchCustomer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -85,13 +89,13 @@ namespace Greg_Project_1.Controllers
             }
         }
 
-        // GET: SearchLocation/Delete/5
+        // GET: SearchCustomer/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: SearchLocation/Delete/5
+        // POST: SearchCustomer/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

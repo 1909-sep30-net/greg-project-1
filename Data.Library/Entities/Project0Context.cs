@@ -11,9 +11,8 @@ namespace Data.Library.Entities
         }
 
         public Project0Context(DbContextOptions<Project0Context> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
+        
 
         public virtual DbSet<Basket> Basket { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
