@@ -200,9 +200,7 @@ namespace Greg_Project_1.Controllers
 
                 ord = _ordContext.GetOrderById(ord.OrderId).First();
 
-                
-
-                return View();
+                return RedirectToAction("Details", "ViewOrder", new { id = ordId});
             }
             catch
             {
