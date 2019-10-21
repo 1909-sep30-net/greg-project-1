@@ -4,37 +4,44 @@
     ViewData["Title"] = "PreDetails";
 }
 
-<h1>PreDetails</h1>
+<h1>Let's confirm...</h1>
 
 <div>
-    <h4>PlaceOrderViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CustId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CustId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LocId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LocId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cust)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cust)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Loc)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Loc)
-        </dd>
-    </dl>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cust)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LocId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Loc)
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.CustId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Cust)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.LocId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Loc)
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div>
     Continue?

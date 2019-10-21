@@ -8,11 +8,11 @@ namespace Greg_Project_1.Models
 {
     public class SearchLocationViewModel
     {
-        [Required]
+        [Display(Name = "Location ID")]
         public int Id { get; set; }
-        [Required]
+        [Display(Name = "Store")]
         public string Name { get; set; }
-        [Required]
+        [Display(Name = "Address")]
         public string Address { get; set; }
     }
 }

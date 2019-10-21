@@ -4,23 +4,32 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Customers</h1>
 
+<div>
+    <h3>Narrow your search:</h3>
+</div>
 <div>
     <form asp-action="Index" method="GET" class="form-inline">
         <label class="sr-only" for="search">Search Customers:</label>
 
-
-        <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="custid" placeholder="Id" />
-        <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="firstname" placeholder="First Name" />
-        <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="lastname" placeholder="Last Name" />
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        
+        <div>
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="custid" placeholder="Customer ID #" />
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="firstname" placeholder="First Name" />
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="lastname" placeholder="Last Name" />
+        </div>
+        <div>
+            <em>Feel free to leave any of the boxes blank.</em>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
     </form>
 </div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    Want to add a new customer? <a asp-action="Create">Click here</a>.
 </p>
 <table class="table">
     <thead>
@@ -55,11 +64,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            
         </tr>
 }
     </tbody>
