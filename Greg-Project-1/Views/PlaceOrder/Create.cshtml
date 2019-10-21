@@ -4,9 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Let's start a new order...</h1>
 
-<h4>PlaceOrderViewModel</h4>
+<div>
+    <h4>I'll need to know the customer ID # and location ID #</h4>
+    <p>Not sure of your customer ID #? <a asp-controller="Customer" asp-action="Index" target="_blank">Click here</a> to search for it in a new tab.</p>
+    <p>Not sure of your location ID #? <a>Click here</a> to search for it in a new tab.</p>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,12 +18,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="CustId" class="control-label"></label>
-                <input asp-for="CustId" name="custid" class="form-control" />
+                <input asp-for="CustId" name="custid" min=@Convert.ToInt32(ViewData["minCust"]) max =@Convert.ToInt32(ViewData["maxCust"]) class="form-control" />
                 <span asp-validation-for="CustId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LocId" class="control-label"></label>
-                <input asp-for="LocId" name="locid" class="form-control" />
+                <input asp-for="LocId" name="locid" min=@Convert.ToInt32(ViewData["minLoc"]) max =@Convert.ToInt32(ViewData["maxLoc"]) class="form-control" />
                 <span asp-validation-for="LocId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -27,9 +31,5 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

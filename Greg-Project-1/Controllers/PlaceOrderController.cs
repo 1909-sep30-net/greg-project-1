@@ -31,7 +31,7 @@ namespace Greg_Project_1.Controllers
         // GET: PlaceOrder
         public ActionResult Index()
         {
-            return View();
+            return Redirect(nameof(Create));
         }
 
         
@@ -39,6 +39,13 @@ namespace Greg_Project_1.Controllers
         // GET: PlaceOrder/Create
         public ActionResult Create()
         {
+            ViewData["minCust"] = _custContext.GetCustomers().Select(c => c.CustID).Min();
+            ViewData["maxCust"] = _custContext.GetCustomers().Select(c => c.CustID).Max();
+            ViewData["minLoc"] = _locContext.GetLocations().Select(l => l.StoreID).Min();
+            ViewData["maxLoc"] = _locContext.GetLocations().Select(l => l.StoreID).Max();
+
+
+
             return View();
         }
 
