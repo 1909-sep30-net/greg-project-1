@@ -73,7 +73,7 @@ namespace Greg_Project_1.Controllers
             var custId = Convert.ToInt32(TempData["custId"]);
             var cust = _custContext.GetCustomers(custId: custId).FirstOrDefault().ToString();
             var locId = Convert.ToInt32(TempData["locId"]);
-            var loc = _custContext.GetCustomers(custId: custId).FirstOrDefault().ToString();
+            var loc = _locContext.GetLocations(locId: locId).FirstOrDefault().ToString();
 
             var orderVM = new Models.PlaceOrderViewModel
             {
@@ -110,22 +110,101 @@ namespace Greg_Project_1.Controllers
             return View(inventoryVM);
         }
 
-        // POST: PlaceOrder/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(IFormCollection collection)
         {
+            var coll = new Dictionary<int, int> { };//prodId, Quantity to buy
+
+            foreach (KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues> collItem in collection)
+            {
+                try
+                {
+                    var prodId = Convert.ToInt32(collItem.Key);
+                    var quantity = Convert.ToInt32(Convert.ToString(collItem.Value));
+                    coll.Add(prodId, quantity);
+                }
+                catch { }
+            }
+
+            TempData["coll"] = coll;
+            TempData.Keep();
+
+            return Redirect(nameof(PostDetails));
+        }
+
+
+        // POST: PlaceOrder/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PostDetails(IFormCollection collection)
+        {
             try
             {
-                // TODO: Add update logic here
+                var custId = Convert.ToInt32(TempData["custId"]);
+                var cust = _custContext.GetCustomers(custId: custId).FirstOrDefault();
+                var locId = Convert.ToInt32(TempData["locId"]);
+                var loc = _locContext.GetLocations(locId: locId).FirstOrDefault();
+                var ord = new dom.Order(cust, loc);
 
-                return RedirectToAction(nameof(Index));
+
+                var coll = new Dictionary<int, int> { };//prodId, Quantity to buy
+
+                foreach (KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues> collItem in collection)
+                {
+                    try
+                    {
+                        var prodId = Convert.ToInt32(collItem.Key);
+                        var quantity = Convert.ToInt32(Convert.ToString(collItem.Value));
+                        coll.Add(prodId, quantity);
+                    }
+                    catch { }
+                }
+
+                foreach (KeyValuePair<dom.Product, int> item in loc.Inventory) //prodId, amount in stock
+                {
+                    foreach(KeyValuePair<int, int> collItem in coll)
+                    {
+                        if(item.Key.ProductID == collItem.Key)
+                        {
+                            ord.basket.Add(item.Key, collItem.Value);//prod, quantity to buy
+                            
+                        }
+                    }
+                }
+
+                foreach (KeyValuePair<dom.Product, int> item in ord.basket)
+                {
+                    loc.AdjustQuantity(item.Key, -1 * item.Value);
+                }
+
+                _locContext.UpdateInventory(loc);
+                _locContext.Save();
+
+                _ordContext.AddOrder(ord);
+                _ordContext.Save();
+                var ordId = _ordContext.GetOrdersByCustomer(ord.OrderCustomer.CustID).Last().OrderId;
+                ord.OrderId = ordId;
+                TempData["ordId"] = ord.OrderId;
+                _ordContext.AddBasket(ord, ordId);
+                _ordContext.Save();
+
+
+                var reciept = new Models.RecieptViewModel
+                {
+                    Order = ord.ToString(),
+                    Basket = ord.BasketToString(),
+                };
+
+                return View(reciept);
             }
             catch
             {
-                return View();
+                return Redirect(nameof(Index));
             }
         }
+
+       
 
         // GET: PlaceOrder/Delete/5
         public ActionResult Delete(int id)

@@ -71,7 +71,7 @@ namespace Domains.Library
         /// <param name="customer">The customer of the order</param>
         /// <param name="location">The location of the order</param>
         /// <param name="orderId">The id of the order. Should only be trusted if this Location was mapped over from a database entity.</param>
-        public Order(Customer customer, Location location, int orderId)
+        public Order(Customer customer, Location location, int orderId = 0)
         {
             OrderCustomer = customer;
             OrderLocation = location;

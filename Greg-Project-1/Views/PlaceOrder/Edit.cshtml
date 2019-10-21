@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form>
+<form asp-action="PostDetails">
     <table class="table">
         <thead>
             <tr>
@@ -33,14 +33,15 @@
                     </td>
                     <td>
                         <div class="form-group">
-                            <input type="number" name= @item.ProdId min="0" max=@item.Quantity>
+                            <input type="number" name=@item.ProdId min="0" max=@item.Quantity placeholder="0">
                         </div>
                     </td>
                 </tr>
             }
         </tbody>
+        <div>
+            <input type="submit" asp-action="PostDetails" value="Place Order" class="btn btn-primary" />
+        </div>
     </table>
-    <div>
-        <input type="submit" value="Place Order" class="btn btn-primary" />
-    </div>
+    
 </form>
