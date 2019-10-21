@@ -7,41 +7,13 @@
 <h1>Let's confirm...</h1>
 
 <div>
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CustId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cust)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LocId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Loc)
-                </th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.CustId)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Cust)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.LocId)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Loc)
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <p>
+        @Html.DisplayNameFor(model => model.CustName): @Html.DisplayFor(model => model.CustName) <br />
+        @Html.DisplayNameFor(model => model.CustAddr): @Html.DisplayFor(model => model.CustAddr) <br />
+        @Html.DisplayNameFor(model => model.LocName): @Html.DisplayFor(model => model.LocName)<br />
+        @Html.DisplayNameFor(model => model.LocAddr): @Html.DisplayFor(model => model.LocAddr)<br />
+
+    </p>
 </div>
 <div>
     Continue?

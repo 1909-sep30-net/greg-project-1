@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Let's add some items to your basket...</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,10 +14,19 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProdToString)
+                    @Html.DisplayNameFor(model => model.ProdId)
                 </th>
                 <th>
-                    Add:
+                    @Html.DisplayNameFor(model => model.ProdName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProdDesc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    <strong>Add:</strong>
                 </th>
             </tr>
         </thead>
@@ -26,7 +35,13 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdToString)
+                        @Html.DisplayFor(modelItem => item.ProdId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdDesc)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Quantity)
@@ -39,9 +54,8 @@
                 </tr>
             }
         </tbody>
-        <div>
-            <input type="submit" asp-action="PostDetails" value="Place Order" class="btn btn-primary" />
-        </div>
+
     </table>
-    
+    <input type="submit" asp-action="PostDetails" value="Place Order" class="btn btn-primary" />
+
 </form>

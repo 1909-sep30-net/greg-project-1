@@ -78,16 +78,18 @@ namespace Greg_Project_1.Controllers
         public ActionResult PreDetails()
         {
             var custId = Convert.ToInt32(TempData["custId"]);
-            var cust = _custContext.GetCustomers(custId: custId).FirstOrDefault().ToString();
+            var cust = _custContext.GetCustomers(custId: custId).FirstOrDefault();
             var locId = Convert.ToInt32(TempData["locId"]);
-            var loc = _locContext.GetLocations(locId: locId).FirstOrDefault().ToString();
+            var loc = _locContext.GetLocations(locId: locId).FirstOrDefault();
 
             var orderVM = new Models.PlaceOrderViewModel
             {
                 CustId = custId,
                 LocId = locId,
-                Cust = cust,
-                Loc = loc
+                CustName = cust.FullName,
+                CustAddr = cust.Address,
+                LocName = loc.StoreName,
+                LocAddr = loc.Address
             };
             
 
@@ -196,10 +198,20 @@ namespace Greg_Project_1.Controllers
                 _ordContext.AddBasket(ord, ordId);
                 _ordContext.Save();
 
+                ord = _ordContext.GetOrderById(ord.OrderId).First();
 
                 var reciept = new Models.RecieptViewModel
                 {
-                    Order = ord.ToString(),
+                    OrderId = ord.OrderId,
+                    
+                    OrderCustId = ord.OrderCustomer.CustID,
+                    OrderCustName = ord.OrderCustomer.FullName,
+                    OrderCustAddress = ord.OrderCustomer.Address,
+
+                    OrderLocationId = ord.OrderLocation.StoreID,
+                    OrderLocationName = ord.OrderLocation.StoreName,
+                    OrderLocationAddress = ord.OrderLocation.Address,
+
                     Basket = ord.BasketToString(),
                 };
 
