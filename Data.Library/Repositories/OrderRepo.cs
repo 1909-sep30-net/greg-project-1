@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Data.Library.Repositories
 {
     /// <summary>
-    /// A Repository of Functions revolving around Domain Orders and Entity Reciepts and Entity Baskets.
+    /// A Repository of Functions revolving around Domain Orders and Entity Receipts and Entity Baskets.
     /// </summary>
     public class OrderRepo : dom.Interfaces.IOrderRepo
     {
@@ -44,7 +44,7 @@ namespace Data.Library.Repositories
         /// <summary>
         /// Map and add the items in a Domain Order's basket to the database.
         /// </summary>
-        /// <param name="dbId">The ID of the Domain Order's Entity Reciept counterpart in the database.</param>
+        /// <param name="dbId">The ID of the Domain Order's Entity Receipt counterpart in the database.</param>
         public void AddBasket(dom.Order ordDom, int orderId)
         {
             var basket = Mapper.MapBasket(ordDom, orderId);

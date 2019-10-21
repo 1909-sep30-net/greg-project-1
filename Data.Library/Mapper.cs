@@ -95,9 +95,9 @@ namespace Data.Library
         }
         
         /// <summary>
-        /// Maps an Entity Reciept and Basket into a Domain Order
+        /// Maps an Entity receipt and Basket into a Domain Order
         /// </summary>
-        /// <param name="ordEnt">An Entity Reciept and basket</param>
+        /// <param name="ordEnt">An Entity receipt and basket</param>
         /// <returns>A Domain Order</returns>
         public static dom.Order MapOrder(Entities.Receipt ordEnt)
         {
@@ -115,10 +115,10 @@ namespace Data.Library
         }
 
         /// <summary>
-        /// Maps a Domain Order into an Entity Reciept
+        /// Maps a Domain Order into an Entity receipt
         /// </summary>
         /// <param name="ordDom">A Domain Order</param>
-        /// <returns>An Entity Reciept</returns>
+        /// <returns>An Entity receipt</returns>
         public static Entities.Receipt MapOrder(dom.Order ordDom)
         {
             return new Entities.Receipt

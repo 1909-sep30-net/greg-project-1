@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Greg_Project_1.Models.OrderDetailsViewModel>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Order #@ViewData["OrderId"]</h1>
+
+
+<!--
+    ViewData["OrderId"] = ordDom.OrderId;
+        ViewData["CustId"] = ordDom.OrderCustomer.CustID;
+        ViewData["CustName"] = ordDom.OrderCustomer.FullName;
+        ViewData["LocId"] = ordDom.OrderLocation.StoreID;
+        ViewData["LocName"] = ordDom.OrderLocation.StoreName;
+        ViewData["Timestamp"] = ordDom.OrderTimestamp;
+        ViewData["TotalCost"] = Math.Round(ordDom.CalculateCostOfBasket(), 2);
+
+    -->
+<h3>Customer:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewData["CustId"]</td>
+            <td>@ViewData["CustName"]</td>
+            <td>@ViewData["CustAddress"]</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Location:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewData["LocId"]</td>
+            <td>@ViewData["LocName"]</td>
+            <td>@ViewData["LocAddress"]</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Details:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Total Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@ViewData["Timestamp"]</td>
+            <td>@ViewData["TotalCost"]</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Products Purchased:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdDesc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

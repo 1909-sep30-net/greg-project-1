@@ -18,7 +18,7 @@ namespace Domains.Library.Interfaces
         /// <summary>
         /// Map and add the items in a Domain Order's basket to the database.
         /// </summary>
-        /// <param name="dbId">The ID of the Domain Order's Entity Reciept counterpart in the database.</param>
+        /// <param name="dbId">The ID of the Domain Order's Entity Receipt counterpart in the database.</param>
         public void AddBasket(dom.Order ordDom, int orderId);
 
 

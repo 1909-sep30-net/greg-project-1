@@ -200,22 +200,9 @@ namespace Greg_Project_1.Controllers
 
                 ord = _ordContext.GetOrderById(ord.OrderId).First();
 
-                var reciept = new Models.RecieptViewModel
-                {
-                    OrderId = ord.OrderId,
-                    
-                    OrderCustId = ord.OrderCustomer.CustID,
-                    OrderCustName = ord.OrderCustomer.FullName,
-                    OrderCustAddress = ord.OrderCustomer.Address,
+                
 
-                    OrderLocationId = ord.OrderLocation.StoreID,
-                    OrderLocationName = ord.OrderLocation.StoreName,
-                    OrderLocationAddress = ord.OrderLocation.Address,
-
-                    Basket = ord.BasketToString(),
-                };
-
-                return View(reciept);
+                return View();
             }
             catch
             {
