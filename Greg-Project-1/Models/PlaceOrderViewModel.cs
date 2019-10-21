@@ -8,16 +8,22 @@ namespace Greg_Project_1.Models
 {
     public class PlaceOrderViewModel
     {
-        //customer
+        /*
+            //customer
+            public int CustId { get; set; }
+            public dom.Customer Cust { get; set; }
+
+            //location
+            public int LocId { get; set; }
+            public dom.Location Loc { get; set; }
+
+            //order
+            public int OrdId { get; set; }
+            public dom.Order Ord { get; set; }
+        */
         public int CustId { get; set; }
-        public dom.Customer Cust { get; set; }
-
-        //location
         public int LocId { get; set; }
-        public dom.Location Loc { get; set; }
-
-        //order
-        public int OrdId { get; set; }
-        public dom.Order Ord { get; set; }
+        public string Cust { get; set; }
+        public string Loc { get; set; }
     }
 }

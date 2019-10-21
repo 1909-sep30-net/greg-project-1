@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Greg_Project_1.Models.InventoryItemViewModel>
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProdToString)
+                </th>
+                <th>
+                    Add:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdToString)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="number" name= @item.ProdId min="0" max=@item.Quantity>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <input type="submit" value="Place Order" class="btn btn-primary" />
+    </div>
+</form>

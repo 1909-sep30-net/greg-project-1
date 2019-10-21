@@ -34,11 +34,7 @@ namespace Greg_Project_1.Controllers
             return View();
         }
 
-        // GET: PlaceOrder/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        
 
         // GET: PlaceOrder/Create
         public ActionResult Create()
@@ -53,9 +49,17 @@ namespace Greg_Project_1.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                int custId = Convert.ToInt32(collection["custid"]);
+                var cust = _custContext.GetCustomers(custId: custId).FirstOrDefault();
+                if (cust == null) { return View(); }
 
-                return RedirectToAction(nameof(Index));
+                int locId = Convert.ToInt32(collection["locid"]);
+                var loc = _locContext.GetLocations(locId).FirstOrDefault();
+                if(loc == null) { return View(); }
+
+                TempData["custId"] = custId;
+                TempData["locId"] = locId;
+                return RedirectToAction(nameof(PreDetails));
             }
             catch
             {
@@ -63,16 +67,53 @@ namespace Greg_Project_1.Controllers
             }
         }
 
-        // GET: PlaceOrder/Edit/5
-        public ActionResult Edit(int id)
+        // GET: PlaceOrder/Details/5
+        public ActionResult PreDetails()
         {
-            return View();
+            var custId = Convert.ToInt32(TempData["custId"]);
+            var cust = _custContext.GetCustomers(custId: custId).FirstOrDefault().ToString();
+            var locId = Convert.ToInt32(TempData["locId"]);
+            var loc = _custContext.GetCustomers(custId: custId).FirstOrDefault().ToString();
+
+            var orderVM = new Models.PlaceOrderViewModel
+            {
+                CustId = custId,
+                LocId = locId,
+                Cust = cust,
+                Loc = loc
+            };
+            
+
+            TempData.Keep();
+            return View(orderVM);
+        }
+
+        // GET: PlaceOrder/Edit/5
+        public ActionResult Edit()
+        {
+            var custId = Convert.ToInt32(TempData["custId"]);
+            var cust = _custContext.GetCustomers(custId: custId).FirstOrDefault();
+            var locId = Convert.ToInt32(TempData["locId"]);
+            var loc = _locContext.GetLocations(locId: locId).FirstOrDefault();
+
+            var inventoryVM = loc.Inventory.Select(i => new Models.InventoryItemViewModel
+            {
+                ProdId = i.Key.ProductID,
+                ProdDesc = i.Key.ProductDescription,
+                ProdName = i.Key.ProductName,
+                ProdToString = i.Key.ToString(),
+                Quantity = i.Value
+            });
+
+
+            TempData.Keep();
+            return View(inventoryVM);
         }
 
         // POST: PlaceOrder/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(IFormCollection collection)
         {
             try
             {
