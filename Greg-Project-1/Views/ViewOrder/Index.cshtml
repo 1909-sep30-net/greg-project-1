@@ -6,6 +6,36 @@
 
 <h1>Orders</h1>
 
+<div>
+    <h3>Narrow your search by customer:</h3>
+</div>
+<div>
+    <form asp-action="Index" method="GET" class="form-inline">
+
+        <div>
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="custid" placeholder="Customer ID #" />
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <h3>Narrow your search by location:</h3>
+</div>
+<div>
+    <form asp-action="Index" method="GET" class="form-inline">
+
+        <div>
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="locid" placeholder="Location ID #" />
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -28,27 +58,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustId): @Html.DisplayFor(modelItem => item.CustName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LocId): @Html.DisplayFor(modelItem => item.LocName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Timestamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalCost)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id=item.OrderId}) 
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustId): @Html.DisplayFor(modelItem => item.CustName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocId): @Html.DisplayFor(modelItem => item.LocName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timestamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalCost)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.OrderId })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

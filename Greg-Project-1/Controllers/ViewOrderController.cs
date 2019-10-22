@@ -30,12 +30,26 @@ namespace Greg_Project_1.Controllers
 
 
         /// <summary>
-        /// A List of all Orders
+        /// Makes a View with a list of orders
         /// </summary>
-        /// <returns>A View with a list of all orders</returns>
-        public ActionResult Index()
+        /// <param name="custId">A customer Id to search by</param>
+        /// <param name="locId">A location id to search by</param>
+        /// <returns>a View with a list of orders</returns>
+        public ActionResult Index([FromQuery]int custId = -1, [FromQuery]int locId = -1)
         {
-            var ordDom = _ordContext.GetOrders();
+            IEnumerable<dom.Order> ordDom;
+            if (custId != -1)
+            {
+                ordDom = _ordContext.GetOrdersByCustomer(custId);
+            }
+            else if (locId != -1)
+            {
+                ordDom = _ordContext.GetOrdersByLocation(locId);
+            }
+            else
+            {
+                ordDom = _ordContext.GetOrders();
+            }
             var ordVM = ordDom.Select(o => new Models.OrderViewModel
             {
                 OrderId = o.OrderId,
