@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using dom = Domains.Library;
 using dat = Data.Library;
+using Microsoft.Extensions.Logging;
 
 namespace Greg_Project_1.Controllers
 {
@@ -16,12 +17,20 @@ namespace Greg_Project_1.Controllers
         /// </summary>
         public dom.Interfaces.ICustomerRepo _custContext { get; }
 
+        public ILogger<CustomerController> _logger;
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">The database context</param>
-        public CustomerController(dom.Interfaces.ICustomerRepo context) =>
+        public CustomerController
+            (dom.Interfaces.ICustomerRepo context,
+            ILogger<CustomerController> logger)
+        {
             _custContext = context ?? throw new ArgumentNullException(nameof(_custContext));
+            _logger = logger;
+        }
+    
 
 
         /// <summary>
@@ -67,13 +76,14 @@ namespace Greg_Project_1.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                this._logger.LogInformation("Attempting to add customer with firstname", collection["firstname"]);
+                this._logger.LogInformation("Attempting to add customer with lastname", collection["lastname"]);
+                this._logger.LogInformation("Attempting to add customer with address", collection["address"]);
 
                 dom.Customer cust = new dom.Customer(
                     Convert.ToString(collection["firstname"]),
                     Convert.ToString(collection["lastname"]),
                     Convert.ToString(collection["address"]));
-
 
                 _custContext.AddCustomer(cust);
                 _custContext.Save();
@@ -82,6 +92,7 @@ namespace Greg_Project_1.Controllers
             }
             catch
             {
+                this._logger.LogError("Failure to add customer");
                 return View();
             }
         }

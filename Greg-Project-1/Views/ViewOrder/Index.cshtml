@@ -13,7 +13,7 @@
     <form asp-action="Index" method="GET" class="form-inline">
 
         <div>
-            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="custid" placeholder="Customer ID #" />
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="custid" min = 1 placeholder="Customer ID #" />
         </div>
         <div>
             <button type="submit" class="btn btn-primary">Search</button>
@@ -28,7 +28,7 @@
     <form asp-action="Index" method="GET" class="form-inline">
 
         <div>
-            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="locid" placeholder="Location ID #" />
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="locid" min = 1 placeholder="Location ID #" />
         </div>
         <div>
             <button type="submit" class="btn btn-primary">Search</button>

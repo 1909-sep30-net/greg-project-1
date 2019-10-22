@@ -7,6 +7,7 @@ using domI = Domains.Library.Interfaces;
 using datE = Data.Library.Entities;
 using datR = Data.Library.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace Greg_Project_1
 {
@@ -29,7 +30,7 @@ namespace Greg_Project_1
             services.AddScoped<domI.IProductRepo, datR.ProductRepo>();
             services.AddScoped<domI.ILocationRepo, datR.LocationRepo>();
             services.AddScoped<domI.IOrderRepo, datR.OrderRepo>();
-
+            
 
             services.AddControllersWithViews();
         }
@@ -49,6 +50,8 @@ namespace Greg_Project_1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            
 
             app.UseRouting();
 
