@@ -11,15 +11,26 @@ namespace Greg_Project_1.Controllers
 {
     public class CustomerController : Controller
     {
+        /// <summary>
+        /// The database context
+        /// </summary>
         public dom.Interfaces.ICustomerRepo _custContext { get; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="context">The database context</param>
         public CustomerController(dom.Interfaces.ICustomerRepo context) =>
             _custContext = context ?? throw new ArgumentNullException(nameof(_custContext));
 
 
-
-
-        // GET: Customer
+        /// <summary>
+        /// Creates a page consisting of a list of customers in the database, with optional filters
+        /// </summary>
+        /// <param name="custid">Filter for Cust ID</param>
+        /// <param name="firstname">Filter for First Name</param>
+        /// <param name="lastname">Filter for Last Name</param>
+        /// <returns></returns>
         public ActionResult Index([FromQuery]int custid = -1, [FromQuery]string firstname = "", [FromQuery]string lastname = "")
         {
             IEnumerable<dom.Customer> custDom= _custContext.GetCustomers(firstname, lastname, custid);
@@ -36,20 +47,20 @@ namespace Greg_Project_1.Controllers
         }
 
 
-
-        // GET: Customer/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Customer/Create
+        /// <summary>
+        /// Returns a view with form to create a new Customer and add it to the DB
+        /// </summary>
+        /// <returns>A View</returns>
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customer/Create
+        /// <summary>
+        /// Adds a new customer to the DB with the parameters from the form from Create()
+        /// </summary>
+        /// <param name="collection">The parameters from the form</param>
+        /// <returns>Redirects to Index</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -66,52 +77,6 @@ namespace Greg_Project_1.Controllers
 
                 _custContext.AddCustomer(cust);
                 _custContext.Save();
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Customer/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Customer/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Customer/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Customer/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
 
                 return RedirectToAction(nameof(Index));
             }

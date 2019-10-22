@@ -9,17 +9,30 @@ using dat = Data.Library;
 
 namespace Greg_Project_1.Controllers
 {
+    /// <summary>
+    /// The Controller for ViewOrder
+    /// </summary>
     public class ViewOrderController : Controller
     {
+        /// <summary>
+        /// A DBContext with functions for orders
+        /// </summary>
         public dom.Interfaces.IOrderRepo _ordContext { get; }
 
+        /// <summary>
+        /// Constructor for ViewOrder
+        /// </summary>
+        /// <param name="context">A DBContext with functions for orders</param>
         public ViewOrderController(dom.Interfaces.IOrderRepo context) =>
             _ordContext = context ?? throw new ArgumentNullException(nameof(_ordContext));
 
 
 
 
-        // GET: ViewOrder
+        /// <summary>
+        /// A List of all Orders
+        /// </summary>
+        /// <returns>A View with a list of all orders</returns>
         public ActionResult Index()
         {
             var ordDom = _ordContext.GetOrders();
@@ -37,7 +50,11 @@ namespace Greg_Project_1.Controllers
             return View(ordVM);
         }
 
-        // GET: ViewOrder/Details/5
+        /// <summary>
+        /// The Details of a single order
+        /// </summary>
+        /// <param name="id">The Order ID</param>
+        /// <returns>A View with comprhensive details of a single order</returns>
         public ActionResult Details(int id)
         {
             var ordDom = _ordContext.GetOrderById(id).First();
@@ -62,75 +79,6 @@ namespace Greg_Project_1.Controllers
             });
 
             return View(vM);
-        }
-
-        // GET: ViewOrder/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ViewOrder/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ViewOrder/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ViewOrder/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ViewOrder/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ViewOrder/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

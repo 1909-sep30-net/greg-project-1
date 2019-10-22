@@ -9,12 +9,32 @@ using dat = Data.Library;
 
 namespace Greg_Project_1.Controllers
 {
+    /// <summary>
+    /// Controller for placing orders
+    /// </summary>
     public class PlaceOrderController : Controller
     {
+        /// <summary>
+        /// Db Context with manipulation of customers
+        /// </summary>
         public dom.Interfaces.ICustomerRepo _custContext { get; }
+
+        /// <summary>
+        /// Db Context with manipulation of locations
+        /// </summary>
         public dom.Interfaces.ILocationRepo _locContext { get; }
+
+        /// <summary>
+        /// Db Context with manipulation of orders
+        /// </summary>
         public dom.Interfaces.IOrderRepo _ordContext { get; }
 
+        /// <summary>
+        /// Constructor for Controller
+        /// </summary>
+        /// <param name="custcontext">Customer DB Context</param>
+        /// <param name="loccontext">Location DB Context</param>
+        /// <param name="ordcontext">Order DB Context</param>
         public PlaceOrderController
             (
              dom.Interfaces.ICustomerRepo custcontext,
@@ -27,16 +47,10 @@ namespace Greg_Project_1.Controllers
             _ordContext = ordcontext ?? throw new ArgumentNullException(nameof(_ordContext));
         }
 
-
-        // GET: PlaceOrder
-        public ActionResult Index()
-        {
-            return Redirect(nameof(Create));
-        }
-
-        
-
-        // GET: PlaceOrder/Create
+        /// <summary>
+        /// The first view of the Create Order
+        /// </summary>
+        /// <returns>The first view of the Create Order</returns>
         public ActionResult Create()
         {
             ViewData["minCust"] = _custContext.GetCustomers().Select(c => c.CustID).Min();
@@ -44,12 +58,14 @@ namespace Greg_Project_1.Controllers
             ViewData["minLoc"] = _locContext.GetLocations().Select(l => l.StoreID).Min();
             ViewData["maxLoc"] = _locContext.GetLocations().Select(l => l.StoreID).Max();
 
-
-
             return View();
         }
 
-        // POST: PlaceOrder/Create
+        /// <summary>
+        /// Validates the inputs from Create() and prepares data for the PreDetails Action
+        /// </summary>
+        /// <param name="collection">The inputs from Create()</param>
+        /// <returns>The PreDetails Action</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -74,7 +90,10 @@ namespace Greg_Project_1.Controllers
             }
         }
 
-        // GET: PlaceOrder/Details/5
+        /// <summary>
+        /// Prepares and displays the information for the future order.
+        /// </summary>
+        /// <returns>A View that allows the Customer to continue or not</returns>
         public ActionResult PreDetails()
         {
             var custId = Convert.ToInt32(TempData["custId"]);
@@ -97,7 +116,10 @@ namespace Greg_Project_1.Controllers
             return View(orderVM);
         }
 
-        // GET: PlaceOrder/Edit/5
+        /// <summary>
+        /// Creates a view with the Inventory of the store to purchase from.
+        /// </summary>
+        /// <returns>a view with the Inventory</returns>
         public ActionResult Edit()
         {
             var custId = Convert.ToInt32(TempData["custId"]);
@@ -119,6 +141,11 @@ namespace Greg_Project_1.Controllers
             return View(inventoryVM);
         }
 
+        /// <summary>
+        /// Parses the form data from Edit() to prepare for Order Placement in PostDetails
+        /// </summary>
+        /// <param name="collection">The form data from Edit()</param>
+        /// <returns>Redirects to Post Details</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(IFormCollection collection)
@@ -142,8 +169,11 @@ namespace Greg_Project_1.Controllers
             return Redirect(nameof(PostDetails));
         }
 
-
-        // POST: PlaceOrder/Edit/5
+        /// <summary>
+        /// Places the orders
+        /// </summary>
+        /// <param name="collection">The items in the basket</param>
+        /// <returns>The order details</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PostDetails(IFormCollection collection)
@@ -205,31 +235,6 @@ namespace Greg_Project_1.Controllers
             catch
             {
                 return Redirect(nameof(Index));
-            }
-        }
-
-       
-
-        // GET: PlaceOrder/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PlaceOrder/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
             }
         }
     }
