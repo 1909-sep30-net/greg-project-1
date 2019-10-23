@@ -71,28 +71,33 @@ namespace Greg_Project_1.Controllers
         /// <returns>A View with comprhensive details of a single order</returns>
         public ActionResult Details(int id)
         {
-            var ordDom = _ordContext.GetOrderById(id).First();
+            var ordDom = _ordContext.GetOrderById(id).FirstOrDefault();
 
-            ViewData["OrderId"] = ordDom.OrderId;
-            ViewData["CustId"] = ordDom.OrderCustomer.CustID;
-            ViewData["CustName"] = ordDom.OrderCustomer.FullName;
-            ViewData["CustAddress"] = ordDom.OrderCustomer.Address;
-            ViewData["LocId"] = ordDom.OrderLocation.StoreID;
-            ViewData["LocName"] = ordDom.OrderLocation.StoreName;
-            ViewData["LocAddress"] = ordDom.OrderLocation.Address;
-            ViewData["Timestamp"] = ordDom.OrderTimestamp;
-            ViewData["TotalCost"] = Math.Round(ordDom.CalculateCostOfBasket(), 2);
-
-            var vM = ordDom.basket.Select(b => new Models.OrderDetailsViewModel
+            if (ordDom == null) { return RedirectToAction("Index", "ViewOrder"); }
+            else
             {
-                ProdId = b.Key.ProductID,
-                ProdName = b.Key.ProductName,
-                ProdDesc = b.Key.ProductDescription,
-                UnitCost = Math.Round(b.Key.Cost, 2),
-                Quantity = b.Value
-            });
 
-            return View(vM);
+                ViewData["OrderId"] = ordDom.OrderId;
+                ViewData["CustId"] = ordDom.OrderCustomer.CustID;
+                ViewData["CustName"] = ordDom.OrderCustomer.FullName;
+                ViewData["CustAddress"] = ordDom.OrderCustomer.Address;
+                ViewData["LocId"] = ordDom.OrderLocation.StoreID;
+                ViewData["LocName"] = ordDom.OrderLocation.StoreName;
+                ViewData["LocAddress"] = ordDom.OrderLocation.Address;
+                ViewData["Timestamp"] = ordDom.OrderTimestamp;
+                ViewData["TotalCost"] = Math.Round(ordDom.CalculateCostOfBasket(), 2);
+
+                var vM = ordDom.basket.Select(b => new Models.OrderDetailsViewModel
+                {
+                    ProdId = b.Key.ProductID,
+                    ProdName = b.Key.ProductName,
+                    ProdDesc = b.Key.ProductDescription,
+                    UnitCost = Math.Round(b.Key.Cost, 2),
+                    Quantity = b.Value
+                });
+
+                return View(vM);
+            }
         }
     }
 }
