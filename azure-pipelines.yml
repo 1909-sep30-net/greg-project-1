@@ -20,3 +20,9 @@ steps:
   inputs:
     command: 'test'
     testRunTitle: 'TestTitle'
+    arguments: '-c $(buildConfiguration) --collect "XPlat Code Coverage"'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
