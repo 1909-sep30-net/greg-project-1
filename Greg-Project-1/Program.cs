@@ -10,6 +10,7 @@ using Serilog;
 
 namespace Greg_Project_1
 {
+    //hello Greg!
     public class Program
     {
         public static void Main(string[] args)
