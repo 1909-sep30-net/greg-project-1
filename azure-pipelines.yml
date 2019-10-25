@@ -22,6 +22,8 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'gregstoremanager'
     projectName: 'gregstoremanager'
+    extraProperties: |
+         sonar.inclusions = **/lib/**
 
 
 - script: dotnet build --configuration $(buildConfiguration)
