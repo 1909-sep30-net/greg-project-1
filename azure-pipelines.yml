@@ -23,7 +23,7 @@ steps:
     projectKey: 'gregstoremanager'
     projectName: 'gregstoremanager'
     extraProperties: |
-         sonar.inclusions = **/lib/**
+         sonar.exclusions = **/lib/**
 
 
 - script: dotnet build --configuration $(buildConfiguration)
