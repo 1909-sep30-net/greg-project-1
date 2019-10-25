@@ -13,6 +13,19 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- task: SonarCloudPrepare@1
+  displayName: Sonar Prepare
+  inputs:
+    SonarCloud: 'sonarcloud-gpyofavv-connection'
+    organization: 'gpyofavv-github'
+    scannerMode: 'MSBuild'
+    projectKey: 'gregstoremanager'
+    projectName: 'gregstoremanager'
+    extraProperties: |
+         sonar.exclusions = **/lib/**
+
+
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
@@ -21,6 +34,12 @@ steps:
     command: 'test'
     testRunTitle: 'TestTitle'
     arguments: '-c $(buildConfiguration) --collect "XPlat Code Coverage"'
+
+- task: SonarCloudAnalyze@1
+  displayName: Sonar Analyze
+
+- task: SonarCloudPublish@1
+  displayName: Sonar Publish
 
 - task: PublishCodeCoverageResults@1
   inputs:
