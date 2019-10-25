@@ -56,7 +56,7 @@ namespace Greg_Project_1
             }
             catch (IOException ex)
             {
-                Console.WriteLine("Exception while trying to read file {file}", jsonFilePath);
+                Console.WriteLine($"Exception {ex} while trying to read file {jsonFilePath}");
                 return null;
             }
 
